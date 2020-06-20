@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Url;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\LockMode;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -41,5 +42,34 @@ class UrlRepository extends ServiceEntityRepository
         $em->flush();
         $em->commit();
         return $url;
+    }
+
+    /**
+     * @param int $id
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(int $id)
+    {
+        $em = $this->getEntityManager();
+        $em->beginTransaction();
+        $url = $this->find($id, LockMode::PESSIMISTIC_WRITE);
+        if (!$url instanceof Url) {
+            return;
+        }
+        $em->remove($url);
+        $em->flush();
+        $em->commit();
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return Url|null
+     */
+    public function get(int $id): ?Url
+    {
+        return $this->find($id);
     }
 }

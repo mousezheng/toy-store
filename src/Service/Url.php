@@ -44,4 +44,29 @@ class Url
         $url = $this->urlRepository->add($urlInfo, $type->getValue(), $redirect->getValue());
         return $url->getId();
     }
+
+    /**
+     * @param int $id
+     *
+     * @return array|null
+     */
+    public function get(int $id): ?array
+    {
+        $url = $this->urlRepository->get($id);
+        if ($url === null) {
+            return null;
+        }
+        return [
+            'id'       => $url->getId(),
+            'redirect' => $url->getRedirect(),
+            'type'     => $url->getType(),
+            'addTime'  => $url->getAddTime(),
+            'url'      => $url->getUrl()
+        ];
+    }
+
+    public function delete(int $id)
+    {
+        $this->urlRepository->delete($id);
+    }
 }

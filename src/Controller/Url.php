@@ -13,7 +13,6 @@ use App\Enum\RedirectType;
 use App\Enum\UrlType;
 use App\Service\Url as UrlService;
 use Respect\Validation\Validator as v;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -22,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @package App\Controller
  * @Route("/url/")
  */
-class Url extends AbstractController
+class Url
 {
     /**
      * @var UrlService
@@ -69,15 +68,17 @@ class Url extends AbstractController
      */
     public function delete(int $id)
     {
-
+        $this->urlService->delete($id);
     }
 
     /**
      * @param int $id
+     *
+     * @return array|null
      * @Route("toy/{id}", methods="GET")
      */
-    public function geta(int $id)
+    public function get(int $id): ?array
     {
-
+        return $this->urlService->get($id);
     }
 }
