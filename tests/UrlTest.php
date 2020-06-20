@@ -74,4 +74,14 @@ class UrlTest extends WebTestCase
         $testContent['id'] = $responseContent['data'] ?? null;
         return $testContent;
     }
+
+    public function testRedirect()
+    {
+        $testContent = $this->save();
+        self::assertIsInt($testContent['id']);
+        $this->client->request('GET', sprintf('/url/redirect/%d', $testContent['id']));
+        $response        = $this->client->getResponse();
+        self::assertEquals($testContent['redirect'], $response->getStatusCode());
+        self::assertEquals($testContent['url'], $response->headers->get('Location'));
+    }
 }

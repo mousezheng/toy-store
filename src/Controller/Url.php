@@ -13,6 +13,7 @@ use App\Enum\RedirectType;
 use App\Enum\UrlType;
 use App\Service\Url as UrlService;
 use Respect\Validation\Validator as v;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -80,5 +81,17 @@ class Url
     public function get(int $id): ?array
     {
         return $this->urlService->get($id);
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return Response
+     * @Route("redirect/{id}", methods="GET")
+     */
+    public function redirect(int $id): Response
+    {
+        $url = $this->urlService->get($id);
+        return new Response(null, $url['redirect'], ['Location' => $url['url']]);
     }
 }
