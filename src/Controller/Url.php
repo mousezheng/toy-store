@@ -9,8 +9,11 @@
 
 namespace App\Controller;
 
+use App\Enum\RedirectType;
+use App\Enum\UrlType;
+use App\Service\Url as UrlService;
+use Respect\Validation\Validator as v;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -22,16 +25,42 @@ use Symfony\Component\Routing\Annotation\Route;
 class Url extends AbstractController
 {
     /**
-     * @param int    $id
-     * @param string $url
-     *
-     * @return Response
-     * @Route("toy/{id}", methods="POST")
+     * @var UrlService
      */
-    public function save(int $id, string $url): Response
+    private $urlService;
+
+    /**
+     * Url constructor.
+     *
+     * @param UrlService $urlService
+     */
+    public function __construct(UrlService $urlService)
     {
-        var_dump($id);
-        return $this->json([$id,$url]);
+        $this->urlService = $urlService;
+    }
+
+    /**
+     * @param array $content
+     *
+     * @return int
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @Route("save", methods="POST")
+     */
+    public function save(array $content): int
+    {
+        $validator = v::keySet(
+            v::key('url', v::url()),
+            v::key('type', v::in(UrlType::values())),
+            v::key('redirect', v::in([301, 302]))
+        );
+        $validator->assert($content);
+        [
+            'url'      => $url,
+            'type'     => $type,
+            'redirect' => $redirect
+        ] = $content;
+        return $this->urlService->save($url, new UrlType($type), new RedirectType($redirect));
     }
 
     /**

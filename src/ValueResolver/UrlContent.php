@@ -18,11 +18,11 @@ class UrlContent implements ArgumentValueResolverInterface
 
     public function supports(Request $request, ArgumentMetadata $argument)
     {
-        return $argument->getName() === 'url';
+        return $argument->getName() === 'content';
     }
 
     public function resolve(Request $request, ArgumentMetadata $argument)
     {
-        yield $request->getContent();
+        yield json_decode($request->getContent(), true);
     }
 }

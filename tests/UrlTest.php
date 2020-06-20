@@ -15,19 +15,18 @@ class UrlTest extends WebTestCase
 {
     public function testGet()
     {
-        $client = static::createClient();
-        $id     = time();
-        $url    = 'http://url-demo';
-        $client->request(
-            'Post',
-            sprintf('/url/toy/%d', $id),
-            [],
-            [],
-            [],
-            $url
-        );
+        $client  = static::createClient();
+        $content = json_encode([
+            "url"      => "http://example.com",
+            "type"     => "img",
+            "redirect" => 301
+        ]);
+        $client->request('Post', '/url/save', [], [], [], $content);
+        $responseContent = $client->getResponse()->getContent();
+        $responseContent = json_decode($responseContent, true);
         self::assertEquals(200, $client->getResponse()->getStatusCode());
-        self::assertEquals(json_encode([$id, $url]), $client->getResponse()->getContent());
+        self::assertEquals(0, $responseContent['code']);
+        self::assertIsInt($responseContent['data']);
     }
 
     //    public function testPost()

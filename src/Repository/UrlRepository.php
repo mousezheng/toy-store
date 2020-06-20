@@ -19,32 +19,27 @@ class UrlRepository extends ServiceEntityRepository
         parent::__construct($registry, Url::class);
     }
 
-    // /**
-    //  * @return Url[] Returns an array of Url objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param string $urlInfo
+     * @param string $type
+     * @param string $redirect
+     *
+     * @return Url
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function add(string $urlInfo, string $type, string $redirect): Url
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $em = $this->getEntityManager();
+        $em->beginTransaction();
+        $url = new Url();
+        $url->setAddTime(time())
+            ->setUrl($urlInfo)
+            ->setType($type)
+            ->setRedirect($redirect);
+        $em->persist($url);
+        $em->flush();
+        $em->commit();
+        return $url;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Url
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
