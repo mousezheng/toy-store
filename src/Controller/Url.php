@@ -22,14 +22,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class Url extends AbstractController
 {
     /**
-     * @param int $id
-     * @Route("toy/{id}", methods="POST")
+     * @param int    $id
+     * @param string $url
      *
      * @return Response
+     * @Route("toy/{id}", methods="POST")
      */
-    public function save(int $id): Response
+    public function save(int $id, string $url): Response
     {
-        return $this->json([$id]);
+        var_dump($id);
+        return $this->json([$id,$url]);
     }
 
     /**
