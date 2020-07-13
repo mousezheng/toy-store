@@ -21,10 +21,23 @@ git clone https://github.com/mousezheng/toy-store.git
 composer install
 ```
 
-配置数据库，测试使用 sqlite 在 .env 中添加
+配置数据库，测试使用 sqlite 在 .env 中添加(使用 sqllite 需要在对应目录创建文件)
 
 ```php
 DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db
+#DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7
+```
+
+创建数据库
+
+```php
+php bin/console doctrine:database:create
+```
+
+创建表
+
+```php
+php bin/console doctrine:migrations:migrate
 ```
 
 运行
