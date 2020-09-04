@@ -27,6 +27,6 @@ jobs:
       run: ./bin/phpunit
       
     - name: run server
-      run: php -S localhost:80 -t public
+      run: php -S localhost:8080 -t public
     
 
