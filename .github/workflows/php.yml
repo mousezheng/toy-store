@@ -26,7 +26,7 @@ jobs:
     - name: Run test suite
       run: ./bin/phpunit
       
-    - name: run server
-      run: php -S localhost:8080 -t public
+    - name: nginx test
+      run: nginx -t
     
 
