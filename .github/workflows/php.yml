@@ -14,7 +14,7 @@ jobs:
     - name: check env
       run: composer check
     - name: Install dependencies
-      run: composer install 、
+      run: composer install
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
     - name: Run test suite
