@@ -17,6 +17,13 @@ jobs:
       run: composer install
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
+    
+    ## 测试 创建数据库、运行数据库变更、运行单元测试
+    - name: create db
+      run: php bin/console doctrine:database:create
+    - name: run db migrations
+      run: php bin/console doctrine:migrations:migrate
     - name: Run test suite
       run: ./bin/phpunit
+      
 
