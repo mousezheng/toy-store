@@ -26,4 +26,7 @@ jobs:
     - name: Run test suite
       run: ./bin/phpunit
       
+    - name: run server
+      run: php -S localhost:80 -t public
+    
 
