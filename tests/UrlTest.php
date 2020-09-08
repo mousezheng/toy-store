@@ -61,8 +61,8 @@ class UrlTest extends WebTestCase
     private function save(): array
     {
         $testContent = [
-            "url"      => "http://example.com",
-            "type"     => "img",
+            "url"      => "https://github.com/mousezheng",
+            "type"     => "link",
             "redirect" => 301
         ];
         $content     = json_encode($testContent);
