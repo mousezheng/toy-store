@@ -15,27 +15,27 @@ class Url
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=65535, options={"comment"="存储链接详情"})
      */
-    private $url;
+    private ?string $url;
 
     /**
      * @ORM\Column(type="string", length=16, options={"comment"="重定向类型，eg: 301, 302, and so on"})
      */
-    private $redirect;
+    private ?string $redirect;
 
     /**
      * @ORM\Column(type="string", length=32, options={"comment"="eg: link,img,file,and so on"})
      */
-    private $type;
+    private ?string $type;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $addTime;
+    private ?int $addTime;
 
     public function getId(): ?int
     {

@@ -27,7 +27,7 @@ class Url
     /**
      * @var UrlService
      */
-    private $urlService;
+    private UrlService $urlService;
 
     /**
      * Url constructor.
@@ -43,8 +43,6 @@ class Url
      * @param array $content
      *
      * @return int
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      * @Route("save", methods="POST")
      */
     public function save(array $content): int

@@ -18,7 +18,7 @@ class Url
     /**
      * @var UrlRepository
      */
-    private $urlRepository;
+    private UrlRepository $urlRepository;
 
     /**
      * Url constructor.
@@ -36,8 +36,6 @@ class Url
      * @param RedirectType $redirect
      *
      * @return int
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function save(string $urlInfo, UrlType $type, RedirectType $redirect): int
     {
@@ -53,7 +51,7 @@ class Url
     public function get(int $id): ?array
     {
         $url = $this->urlRepository->get($id);
-        if ($url === null) {
+        if (!$url instanceof \App\Entity\Url) {
             return null;
         }
         return [
