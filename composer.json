@@ -6,6 +6,7 @@
     "ext-ctype": "*",
     "ext-iconv": "*",
     "ext-json": "*",
+    "k911/swoole-bundle": "^0.8.2",
     "myclabs/php-enum": "*",
     "respect/validation": "*",
     "sensio/framework-extra-bundle": "*",
