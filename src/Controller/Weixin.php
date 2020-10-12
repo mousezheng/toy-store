@@ -75,4 +75,19 @@ class Weixin
         $validator->assert($query);
         return $this->weixinService->getInfo($query['openid']);
     }
+
+    /**
+     * @param array $query
+     *
+     * @return array
+     * @Route("getSessionByCode", methods="GET")
+     */
+    public function getSessionByCode($query): array
+    {
+        $validator = v::keySet(
+            v::key('code', v::stringVal())
+        );
+        $validator->assert($query);
+        return $this->weixinService->getSessionByCode($query['code']);
+    }
 }

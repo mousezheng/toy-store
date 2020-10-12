@@ -37,3 +37,8 @@ services:
   App\Listener\ViewListener:
     tags:
       - { name: kernel.event_listener, event: kernel.view }
+
+  App\Service\Weixin:
+    arguments:
+      $appId: '%env(string:WEIXIN_APP_ID)%'
+      $appSecret: '%env(string:WEIXIN_APP_SECRET)%'

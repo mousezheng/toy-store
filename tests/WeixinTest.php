@@ -71,4 +71,17 @@ class WeixinTest extends WebTestCase
         $id = $responseContent['data'] ?? null;
         return $id;
     }
+
+    public function testGetSessionByCode()
+    {
+        $query = [
+            'code' => 'oOmvP4vZTLuPxMDccaMY6bypF39Y'
+        ];
+        $this->client->request('GET', '/weixin/getSessionByCode', $query);
+        $response        = $this->client->getResponse();
+        $responseContent = json_decode($response->getContent(), true);
+        self::assertEquals(200, $response->getStatusCode());
+        self::assertEquals(0, $responseContent['code']);
+        self::assertEquals(40029, $responseContent['data']['errcode']);
+    }
 }
