@@ -18,7 +18,7 @@ class Url
     private ?int $id;
 
     /**
-     * @ORM\Column(type="string", length=65535, options={"comment"="存储链接详情"})
+     * @ORM\Column(type="text", options={"comment"="存储链接详情"})
      */
     private ?string $url;
 
