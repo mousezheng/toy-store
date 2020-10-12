@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  *          @ORM\Index(columns={"openid"}),
  *     },
  *     options={"comment"="登录成功日志记录"}
- *     )
+ * )
  */
 class LoginLog
 {
