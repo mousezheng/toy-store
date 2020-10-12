@@ -19,32 +19,47 @@ class WeixinUserInfoRepository extends ServiceEntityRepository
         parent::__construct($registry, WeixinUserInfo::class);
     }
 
-    // /**
-    //  * @return WeixinUserInfo[] Returns an array of WeixinUserInfo objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function add(WeixinUserInfo $weixinUserInfo): WeixinUserInfo
     {
-        return $this->createQueryBuilder('w')
-            ->andWhere('w.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('w.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $em = $this->getEntityManager();
+        $em->beginTransaction();
+        $weixinUserInfo->setAddTime(time());
+        $em->persist($weixinUserInfo);
+        $em->flush();
+        $em->commit();
+        return $weixinUserInfo;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?WeixinUserInfo
+    public function updateByOpenid(WeixinUserInfo $weixinUserInfo, WeixinUserInfo $weixinUserInfoEntity): WeixinUserInfo
     {
-        return $this->createQueryBuilder('w')
-            ->andWhere('w.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $em = $this->getEntityManager();
+        $em->beginTransaction();
+        $weixinUserInfoEntity->setAvatarUrl($weixinUserInfo->getAvatarUrl())
+                             ->setCity($weixinUserInfo->getCity())
+                             ->setCountry($weixinUserInfo->getCountry())
+                             ->setGender($weixinUserInfo->getGender())
+                             ->setLanguage($weixinUserInfo->getLanguage())
+                             ->setNickName($weixinUserInfo->getNickName())
+                             ->setProvince($weixinUserInfo->getProvince());
+        $em->flush();
+        $em->commit();
+        return $weixinUserInfo;
     }
-    */
+
+    public function delete(WeixinUserInfo $weixinUserInfo)
+    {
+        $em = $this->getEntityManager();
+        $em->beginTransaction();
+        $em->remove($weixinUserInfo);
+        $em->flush();
+        $em->commit();
+        return $weixinUserInfo;
+    }
+
+    public function findByOpenid(string $openid): ?WeixinUserInfo
+    {
+        return $this->findOneBy([
+            'openid' => $openid
+        ]);
+    }
 }
