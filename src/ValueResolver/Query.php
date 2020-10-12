@@ -13,16 +13,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
-class UrlContent implements ArgumentValueResolverInterface
+class Query implements ArgumentValueResolverInterface
 {
 
     public function supports(Request $request, ArgumentMetadata $argument)
     {
-        return $argument->getName() === 'content';
+        return $argument->getName() === 'query';
     }
 
     public function resolve(Request $request, ArgumentMetadata $argument)
     {
-        yield json_decode($request->getContent(), true);
+        yield $request->query->all();
     }
 }

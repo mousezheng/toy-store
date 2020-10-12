@@ -31,9 +31,9 @@ class Weixin
 
     /**
      * @param array $content
-     * @Route("save", methods="POST")
      *
      * @return int
+     * @Route("save", methods="POST")
      */
     public function save(array $content): int
     {
@@ -59,5 +59,20 @@ class Weixin
                        ->setProvince($content['province'] ?? null)
                        ->setOpenid($content['openid'] ?? null);
         return $this->weixinService->save($weixinUserInfo);
+    }
+
+    /**
+     * @param array $query
+     *
+     * @return array
+     * @Route("getInfo", methods="GET")
+     */
+    public function getInfo($query): array
+    {
+        $validator = v::keySet(
+            v::key('openid', v::stringVal())
+        );
+        $validator->assert($query);
+        return $this->weixinService->getInfo($query['openid']);
     }
 }

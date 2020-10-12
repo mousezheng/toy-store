@@ -21,12 +21,16 @@ services:
   # as action arguments even if you don't extend any base controller class
   App\Controller\:
     resource: '../src/Controller'
-    tags: ['controller.service_arguments']
+    tags: [ 'controller.service_arguments' ]
 
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones
 
-  App\ValueResolver\UrlContent:
+  App\ValueResolver\Content:
+    tags:
+      - { name: controller.argument_value_resolver, priority: 50 }
+
+  App\ValueResolver\Query:
     tags:
       - { name: controller.argument_value_resolver, priority: 50 }
 

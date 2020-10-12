@@ -14,9 +14,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class WeixinTest extends WebTestCase
 {
-    /**
-     * @var KernelBrowser
-     */
     private KernelBrowser $client;
 
     protected function setUp()
@@ -29,6 +26,28 @@ class WeixinTest extends WebTestCase
     {
         $id = $this->save();
         self::assertIsNumeric($id);
+    }
+
+    public function testGetInfo()
+    {
+        $query = [
+            'openid' => 'oOmvP4vZTLuPxMDccaMY6bypF39Y'
+        ];
+        $this->client->request('GET', '/weixin/getInfo', $query);
+        $response        = $this->client->getResponse();
+        $responseContent = json_decode($response->getContent(), true);
+        self::assertEquals(200, $response->getStatusCode());
+        self::assertEquals(0, $responseContent['code']);
+        self::assertArrayHasKey('id', $responseContent['data']);
+        self::assertArrayHasKey('avatarUrl', $responseContent['data']);
+        self::assertArrayHasKey('city', $responseContent['data']);
+        self::assertArrayHasKey('country', $responseContent['data']);
+        self::assertArrayHasKey('gender', $responseContent['data']);
+        self::assertArrayHasKey('language', $responseContent['data']);
+        self::assertArrayHasKey('nickName', $responseContent['data']);
+        self::assertArrayHasKey('province', $responseContent['data']);
+        self::assertArrayHasKey('openid', $responseContent['data']);
+        self::assertIsNumeric($responseContent['data']['id']);
     }
 
     public function save(): int

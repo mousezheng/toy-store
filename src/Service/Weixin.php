@@ -32,8 +32,19 @@ class Weixin
         return $weixinUserInfoEntity->getId();
     }
 
-    public function getInfo(string $openid): ?WeixinUserInfo
+    public function getInfo(string $openid): ?array
     {
-        return $this->weixinUserInfoRepo->findByOpenid($openid);
+        $weixinUserInfoEntity = $this->weixinUserInfoRepo->findByOpenid($openid);
+        return [
+            'id'        => $weixinUserInfoEntity->getId(),
+            'avatarUrl' => $weixinUserInfoEntity->getAvatarUrl(),
+            'city'      => $weixinUserInfoEntity->getCity(),
+            'country'   => $weixinUserInfoEntity->getCountry(),
+            'gender'    => $weixinUserInfoEntity->getGender(),
+            'language'  => $weixinUserInfoEntity->getLanguage(),
+            'nickName'  => $weixinUserInfoEntity->getNickName(),
+            'province'  => $weixinUserInfoEntity->getProvince(),
+            'openid'    => $weixinUserInfoEntity->getOpenid()
+        ];
     }
 }
