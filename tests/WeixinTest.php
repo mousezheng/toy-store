@@ -31,7 +31,7 @@ class WeixinTest extends WebTestCase
     public function testGetInfo()
     {
         $query = [
-            'openid' => 'oOmvP4vZTLuPxMDccaMY6bypF39Y'
+            'openId' => 'oOmvP4vZTLuPxMDccaMY6bypF39Y'
         ];
         $this->client->request('GET', '/weixin/getInfo', $query);
         $response        = $this->client->getResponse();
@@ -46,7 +46,7 @@ class WeixinTest extends WebTestCase
         self::assertArrayHasKey('language', $responseContent['data']);
         self::assertArrayHasKey('nickName', $responseContent['data']);
         self::assertArrayHasKey('province', $responseContent['data']);
-        self::assertArrayHasKey('openid', $responseContent['data']);
+        self::assertArrayHasKey('openId', $responseContent['data']);
         self::assertIsNumeric($responseContent['data']['id']);
     }
 
@@ -58,7 +58,7 @@ class WeixinTest extends WebTestCase
             'country'   => 'Xi\'an',
             'gender'    => '1',
             'nickName'  => '鼠小',
-            'openid'    => 'oOmvP4vZTLuPxMDccaMY6bypF39Y',
+            'openId'    => 'oOmvP4vZTLuPxMDccaMY6bypF39Y',
             'province'  => 'Shaanxi',
             'language'  => 'en',
         ];

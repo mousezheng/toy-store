@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(
  *     indexes={
  *          @ORM\Index(columns={"add_time"}),
- *          @ORM\Index(columns={"openid"}),
+ *          @ORM\Index(columns={"open_id"}),
  *     },
  *     options={"comment"="微信用户信息"}
  * )
@@ -68,14 +68,21 @@ class WeixinUserInfo
     private $language;
 
     /**
-     * @ORM\Column(type="string", length=32)
+     * @ORM\Column(type="string", length=32,
+     *     options={"comment"="微信用户唯一表示"})
      */
-    private $openid;
+    private $openId;
 
     /**
      * @ORM\Column(type="integer")
      */
     private $addTime;
+
+    /**
+     * @ORM\Column(type="string", length=32, nullable=true,
+     *     options={"comment"="一个微信开放平台下的不同应用，UnionID是相同的"})
+     */
+    private $unionId;
 
     public function getId(): ?int
     {
@@ -166,14 +173,14 @@ class WeixinUserInfo
         return $this;
     }
 
-    public function getOpenid(): ?string
+    public function getOpenId(): ?string
     {
-        return $this->openid;
+        return $this->openId;
     }
 
-    public function setOpenid(string $openid): self
+    public function setOpenId(string $openid): self
     {
-        $this->openid = $openid;
+        $this->openId = $openid;
 
         return $this;
     }
@@ -186,6 +193,18 @@ class WeixinUserInfo
     public function setAddTime(int $addTime): self
     {
         $this->addTime = $addTime;
+
+        return $this;
+    }
+
+    public function getUnionId(): ?string
+    {
+        return $this->unionId;
+    }
+
+    public function setUnionId(?string $unionId): self
+    {
+        $this->unionId = $unionId;
 
         return $this;
     }

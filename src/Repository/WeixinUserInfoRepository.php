@@ -30,7 +30,7 @@ class WeixinUserInfoRepository extends ServiceEntityRepository
         return $weixinUserInfo;
     }
 
-    public function updateByOpenid(WeixinUserInfo $weixinUserInfo, WeixinUserInfo $weixinUserInfoEntity): WeixinUserInfo
+    public function updateByOpenId(WeixinUserInfo $weixinUserInfo, WeixinUserInfo $weixinUserInfoEntity): WeixinUserInfo
     {
         $em = $this->getEntityManager();
         $em->beginTransaction();
@@ -56,10 +56,10 @@ class WeixinUserInfoRepository extends ServiceEntityRepository
         return $weixinUserInfo;
     }
 
-    public function findByOpenid(string $openid): ?WeixinUserInfo
+    public function findByOpenId(string $openId): ?WeixinUserInfo
     {
         return $this->findOneBy([
-            'openid' => $openid
+            'openId' => $openId
         ]);
     }
 }

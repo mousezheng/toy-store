@@ -44,9 +44,10 @@ class Weixin
             v::key('country', v::anyOf(v::stringVal(), $emptyValidator), false),
             v::key('gender', v::anyOf(v::in([1, 2, 0]), $emptyValidator), false),
             v::key('nickName', v::anyOf(v::stringVal(), $emptyValidator), false),
-            v::key('openid', v::anyOf(v::stringVal(), $emptyValidator), false),
+            v::key('openId', v::anyOf(v::stringVal(), $emptyValidator), false),
             v::key('province', v::anyOf(v::stringVal(), $emptyValidator), false),
-            v::key('language', v::anyOf(v::in(['en', 'zh_CN', 'zh_TW']), $emptyValidator), false)
+            v::key('language', v::anyOf(v::in(['en', 'zh_CN', 'zh_TW']), $emptyValidator), false),
+            v::key('unionId', v::anyOf(v::stringVal(), $emptyValidator), false)
         );
         $validator->assert($content);
         $weixinUserInfo = new WeixinUserInfo();
@@ -57,23 +58,23 @@ class Weixin
                        ->setLanguage($content['language'] ?? null)
                        ->setNickName($content['nickName'] ?? null)
                        ->setProvince($content['province'] ?? null)
-                       ->setOpenid($content['openid'] ?? null);
+                       ->setOpenId($content['openId'] ?? null);
         return $this->weixinService->save($weixinUserInfo);
     }
 
     /**
      * @param array $query
      *
-     * @return array
+     * @return array|null
      * @Route("getInfo", methods="GET")
      */
-    public function getInfo($query): array
+    public function getInfo($query): ?array
     {
         $validator = v::keySet(
-            v::key('openid', v::stringVal())
+            v::key('openId', v::stringVal())
         );
         $validator->assert($query);
-        return $this->weixinService->getInfo($query['openid']);
+        return $this->weixinService->getInfo($query['openId']);
     }
 
     /**

@@ -29,18 +29,18 @@ class Weixin
 
     public function save(WeixinUserInfo $weixinUserInfo)
     {
-        $weixinUserInfoEntity = $this->weixinUserInfoRepo->findByOpenid($weixinUserInfo->getOpenid());
+        $weixinUserInfoEntity = $this->weixinUserInfoRepo->findByOpenId($weixinUserInfo->getOpenId());
         if ($weixinUserInfoEntity === null) {
             $weixinUserInfoEntity = $this->weixinUserInfoRepo->add($weixinUserInfo);
         } else {
-            $this->weixinUserInfoRepo->updateByOpenid($weixinUserInfo, $weixinUserInfoEntity);
+            $this->weixinUserInfoRepo->updateByOpenId($weixinUserInfo, $weixinUserInfoEntity);
         }
         return $weixinUserInfoEntity->getId();
     }
 
-    public function getInfo(string $openid): ?array
+    public function getInfo(string $openId): ?array
     {
-        $weixinUserInfoEntity = $this->weixinUserInfoRepo->findByOpenid($openid);
+        $weixinUserInfoEntity = $this->weixinUserInfoRepo->findByOpenId($openId);
         return [
             'id'        => $weixinUserInfoEntity->getId(),
             'avatarUrl' => $weixinUserInfoEntity->getAvatarUrl(),
@@ -50,7 +50,7 @@ class Weixin
             'language'  => $weixinUserInfoEntity->getLanguage(),
             'nickName'  => $weixinUserInfoEntity->getNickName(),
             'province'  => $weixinUserInfoEntity->getProvince(),
-            'openid'    => $weixinUserInfoEntity->getOpenid()
+            'openId'    => $weixinUserInfoEntity->getOpenId()
         ];
     }
 
