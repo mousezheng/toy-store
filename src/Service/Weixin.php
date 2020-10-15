@@ -27,7 +27,7 @@ class Weixin
         $this->appSecret          = $appSecret;
     }
 
-    public function save(WeixinUserInfo $weixinUserInfo)
+    public function saveUserInfo(WeixinUserInfo $weixinUserInfo)
     {
         $weixinUserInfoEntity = $this->weixinUserInfoRepo->findByOpenId($weixinUserInfo->getOpenId());
         if ($weixinUserInfoEntity === null) {
@@ -38,7 +38,7 @@ class Weixin
         return $weixinUserInfoEntity->getId();
     }
 
-    public function getInfo(string $openId): ?array
+    public function getUserInfo(string $openId): ?array
     {
         $weixinUserInfoEntity = $this->weixinUserInfoRepo->findByOpenId($openId);
         return [
@@ -54,6 +54,12 @@ class Weixin
         ];
     }
 
+    /**
+     * @inheritDoc https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/login/auth.code2Session.html
+     * @param string $code
+     *
+     * @return array
+     */
     public function getSessionByCode(string $code): array
     {
         $query  = [

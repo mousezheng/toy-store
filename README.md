@@ -48,9 +48,17 @@ symfony server:start
 
 ## 短连接相关API
 
-| 借口名|url | 请求方法 | 参数|
+| 接口名|url | 请求方法 | 参数|
 |--|--|--|--|
 |存储链接|/url/save |POST |{"url":"","type":"link/img/file/other","redirect":"301/302"}|
 |删除链接|/url/toy/1|POST|URL 后缀|
 |获取链接|/url/toy/1|GET|URL 后缀|
 |重定向链接|/url/redirect/1|GET|URL 后缀|
+
+## 微信相关API
+
+| 接口名|url | 请求方法 | 参数|返回信息|
+|--|--|--|--|--|
+|保存微信用户信息|/weixin/saveUserInfo |POST |{"openId":"OPENID","nickName":"NICKNAME","gender":1,"city":"CITY","province":"PROVINCE","country":"COUNTRY","avatarUrl":"https://ipsky.oss-cn-shanghai.aliyuncs.com/User/202009/08/RBPMNltXYYV0T/1599555445000185962324ly1fy3oxwy3j1j20u00u0dim.jpg","language":"en","unionId":"UNIONID"}|{"code":0,"message":"success.","data":3}|
+|获取微信用户信息 |/weixin/getUserInfo |GET| openId=openid|{"code":0,"message":"success.","data":{"id":3,"avatarUrl":"https://ipsky.oss-cn-shanghai.aliyuncs.com/User/202009/08/RBPMNltXYYV0T/1599555445000185962324ly1fy3oxwy3j1j20u00u0dim.jpg","city":"CITY","country":"COUNTRY","gender":1,"language":"en","nickName":"NICKNAME","province":"PROVINCE","openId":"OPENID"}}|
+|获取session|/weixin/getSessionByCode|GET|code=code|{"openid":"OPENID","session_key":"OPENID"} |

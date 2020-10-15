@@ -33,9 +33,9 @@ class Weixin
      * @param array $content
      *
      * @return int
-     * @Route("save", methods="POST")
+     * @Route("saveUserInfo", methods="POST")
      */
-    public function save(array $content): int
+    public function saveUserInfo(array $content): int
     {
         $emptyValidator = v::not(v::notEmpty());
         $validator      = v::keySet(
@@ -59,22 +59,22 @@ class Weixin
                        ->setNickName($content['nickName'] ?? null)
                        ->setProvince($content['province'] ?? null)
                        ->setOpenId($content['openId'] ?? null);
-        return $this->weixinService->save($weixinUserInfo);
+        return $this->weixinService->saveUserInfo($weixinUserInfo);
     }
 
     /**
      * @param array $query
      *
      * @return array|null
-     * @Route("getInfo", methods="GET")
+     * @Route("getUserInfo", methods="GET")
      */
-    public function getInfo($query): ?array
+    public function getUserInfo($query): ?array
     {
         $validator = v::keySet(
             v::key('openId', v::stringVal())
         );
         $validator->assert($query);
-        return $this->weixinService->getInfo($query['openId']);
+        return $this->weixinService->getUserInfo($query['openId']);
     }
 
     /**
