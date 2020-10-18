@@ -32,8 +32,9 @@ class Util
         // 如果没有 upload 目录，你需要创建它，upload 目录权限为 777
         $file = $files["file"] ?? null;
         if ($file) {
-            $filePath = $dir . DIRECTORY_SEPARATOR . time() . mt_rand(100, 999) . $file["name"];
-            $fileUrl  = $fileUrl . DIRECTORY_SEPARATOR . time() . mt_rand(100, 999) . $file["name"];
+            $random   = time() . mt_rand(100, 999);
+            $filePath = $dir . DIRECTORY_SEPARATOR . $random . $file["name"];
+            $fileUrl  = $fileUrl . DIRECTORY_SEPARATOR . $random . $file["name"];
             if (file_exists($filePath)) {
                 return 'err';
             } else {
