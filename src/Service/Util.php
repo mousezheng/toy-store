@@ -23,7 +23,7 @@ class Util
 
         header('Access-Control-Allow-Origin:*'); // *代表允许任何网址请求
 
-        $dir     = 'upload' . DIRECTORY_SEPARATOR . date("Y-m-d");
+        $dir     = './upload' . DIRECTORY_SEPARATOR . date("Y-m-d");
         $fileUrl = DIRECTORY_SEPARATOR . date("Y-m-d");
         if (!file_exists($dir)) {
             mkdir($dir, 0777, true);
