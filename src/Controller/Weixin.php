@@ -103,7 +103,7 @@ class Weixin
         );
         $validator->assert($query);
         $sessionInfo = $this->weixinService->getSessionByCode($query['code']);
-        $session->set('openId', $sessionInfo['openId']);
+        $session->set('openId', $sessionInfo['openid']);
         return $sessionInfo;
     }
 }
