@@ -2,7 +2,7 @@ name: PHP Composer
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, base]
   pull_request:
     branches: [ master ]
 
@@ -25,4 +25,6 @@ jobs:
       run: php bin/console doctrine:migrations:migrate
     - name: Run test suite
       run: ./bin/phpunit
+    - name: show router
+      run: php bin/console debug:router
 
