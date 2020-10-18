@@ -13,6 +13,7 @@ use App\Entity\WeixinUserInfo;
 use App\Repository\WeixinUserInfoRepository;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Response;
+use UnexpectedValueException;
 
 class Weixin
 {
@@ -73,7 +74,11 @@ class Weixin
             sprintf("%s?%s", 'https://api.weixin.qq.com/sns/jscode2session', http_build_query($query)),
         );
         if ($client->getStatusCode() === Response::HTTP_OK) {
-            return json_decode($client->getContent(), true);
+            $sessionInfo = json_decode($client->getContent(), true);
+            if (!(isset($sessionInfo['openid']) && isset($sessionInfo['session_key']))) {
+                throw new UnexpectedValueException('微信授权登录异常');
+            }
+            return $sessionInfo;
         } else {
             return [];
         }
