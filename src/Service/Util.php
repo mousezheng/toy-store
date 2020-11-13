@@ -36,7 +36,7 @@ class Util
             $filePath = $dir . DIRECTORY_SEPARATOR . $random . $file["name"];
             $fileUrl  = $fileUrl . DIRECTORY_SEPARATOR . $random . $file["name"];
             if (file_exists($filePath)) {
-                return 'err';
+                return 'err ';
             } else {
                 // 如果 upload 目录不存在该文件则将文件上传到 upload 目录下
                 move_uploaded_file($file["tmp_name"], $filePath);
