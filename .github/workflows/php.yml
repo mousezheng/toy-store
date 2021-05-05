@@ -15,7 +15,7 @@ jobs:
       run: composer check
     - name: Install dependencies
       run: composer install
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
+    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit" 
     # Docs: https://getcomposer.org/doc/articles/scripts.md
     
     ## 测试 创建数据库、运行数据库变更、运行单元测试
