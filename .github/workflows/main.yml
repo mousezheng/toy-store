@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     
-    - uses: baschny/php-composer-action@v1
+    - uses: php-actions/composer@v5
     - name: check env
       run: composer check
     - name: Install dependencies
