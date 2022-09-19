@@ -28,7 +28,7 @@ DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db
 #DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7
 ```
 
-创建数据库
+创建数据库测试
 
 ```php
 php bin/console doctrine:database:create
